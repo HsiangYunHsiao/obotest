@@ -5,6 +5,7 @@ $P1: #106dc9;
 $P2: #fff500;
 $P3: #e3e3e3;
 $P5: #0f6dca;
+$P6: #59a2eb;
 
 $A1: #d60000;
 $A2: #ebcdcb;
@@ -19,6 +20,9 @@ $G6: #bdbdbd;
 $G7: #e0e0e0;
 $G8: #f5f5f5;
 $G9: #fafafa;
+$G10: #e3e3e3;
+$G11: #f1f1f1;
+$G12: #ebebeb;
 
 $T1: rgba(0, 0, 0, 0.87);
 $T2: rgba(0, 0, 0, 0.6);
@@ -289,34 +293,11 @@ body {
     font-size: 15px;
   }
 }
-.circle {
-  display: inline-block;
-  border-radius: 50%;
-  background-color: $S2;
-  @include size(1.5em);
-  margin: 0 0.5em;
-  @media screen and (max-width: 768px) {
-    @include size(0.8em);
-  }
-}
-.square {
-  display: inline-block;
-  @include size(1.5em);
-  background-color: $S2;
-  margin: 0 0.5em;
-  border-radius: 4px;
-  @media screen and (max-width: 768px) {
-    @include size(0.8em);
-  }
-}
-.triangle {
-  display: inline-block;
-  @include size(1.5em);
-  background-color: $S2;
-  -webkit-clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  margin: 0 0.5em;
-  @media screen and (max-width: 768px) {
-    @include size(0.8em);
+.btn-1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  @media screen and (max-width: 576px) {
+    font-size: 20px;
   }
 }

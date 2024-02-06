@@ -8,7 +8,7 @@
           type="text"
           id="userName"
           v-model="user.name"
-          placeholder="真實姓名*"
+          placeholder="請填入您的真實姓名"
           @input="checkInput()"
           :class="{ correct: !verify.nameError }"
           required
@@ -20,7 +20,7 @@
           type="tel"
           id="cellphone"
           v-model="user.cellphone"
-          placeholder="連絡電話*"
+          placeholder="請填入您的聯絡電話"
           inputmode="tel"
           @input="checkInput()"
           :class="{ correct: !verify.cellphoneError }"
@@ -28,12 +28,12 @@
         />
         <span v-if="verify.cellphoneError && isSubmitted">{{ verify.cellphoneErrorMsg }}</span>
       </label>
-      <label for="email" :class="{ error: verify.emailError && isSubmitted }">
+      <label for="email" :class="{ error: verify.emailError && isSubmitted }" class="w-100">
         <input
           type="email"
           id="email"
           v-model="user.email"
-          placeholder="E-mail*"
+          placeholder="請填入您的E-mail"
           inputmode="email"
           @input="checkInput()"
           :class="{ correct: !verify.emailError }"
@@ -41,23 +41,6 @@
         />
         <span v-if="verify.emailError && isSubmitted">{{ verify.emailErrorMsg }}</span>
       </label>
-      <div class="select" :class="{ error: verify.remarkError && isSubmitted }">
-        <select
-          name=""
-          id=""
-          required
-          v-model="user.remark"
-          @change="checkInput()"
-          :class="{ correct: !verify.remarkError && user.remark != '' }"
-        >
-          <option value="" selected hidden>可聯繫時段*</option>
-          <option value="上午09:00~12:00">上午 09:00~12:00</option>
-          <option value="下午12:00~18:00">下午 12:00~18:00</option>
-          <option value="晚間18:00~22:00">晚間 18:00~22:00</option>
-          <option value="全時段皆可">全時段皆可</option>
-        </select>
-        <span v-if="verify.remarkError && isSubmitted">{{ verify.remarkErrorMsg }}</span>
-      </div>
       <div class="select" :class="{ error: verify.cityError && isSubmitted }">
         <select
           name=""
@@ -67,7 +50,7 @@
           @change="getArea()"
           :class="{ correct: !verify.cityError && user.city != '' }"
         >
-          <option value="" selected hidden>居住縣市*</option>
+          <option value="" selected hidden>居住縣市</option>
           <option :value="item.id" v-for="item in city" :key="item.id">
             {{ item.name }}
           </option>
@@ -83,25 +66,25 @@
           @change="checkInput()"
           :class="{ correct: !verify.areaError && user.area != '' }"
         >
-          <option value="" selected hidden>居住區域*</option>
+          <option value="" selected hidden>居住區域</option>
           <option :value="item.id" v-for="item in area" :key="item.id">{{ item.name }}</option>
         </select>
         <span v-if="verify.areaError && isSubmitted">{{ verify.areaErrorMsg }}</span>
       </div>
-      <div class="select w-100" :class="{ error: verify.remark2Error && isSubmitted }">
+      <div class="select w-100" :class="{ error: verify.remarkError && isSubmitted }">
         <select
           name=""
           id=""
-          v-model="user.remark2"
+          v-model="user.remark"
           @change="checkInput()"
-          :class="{ correct: !verify.remark2Error && user.remark2 != '' }"
+          :class="{ correct: !verify.remarkError && user.remark != '' }"
         >
-          <option value="" selected hidden>設計程度*</option>
-          <option value="零基礎">零基礎</option>
-          <option value="初學者">初學者</option>
-          <option value="設計師">設計師</option>
+          <option value="" selected hidden>請選擇學習模式</option>
+          <option value="OBO個別指導">OBO個別指導</option>
+          <option value="OKBOM線上教學">OKBOM線上教學</option>
+          <option value="設計進階課程">設計進階課程</option>
         </select>
-        <span v-if="verify.remark2Error && isSubmitted">{{ verify.remark2ErrorMsg }}</span>
+        <span v-if="verify.remarkError && isSubmitted">{{ verify.remarkErrorMsg }}</span>
       </div>
       <div class="checkbox" :class="{ error: verify.agreementError && isSubmitted }">
         <input
@@ -118,7 +101,7 @@
         >
         <span v-if="verify.agreementError && isSubmitted">{{ verify.agreementErrorMsg }}</span>
       </div>
-      <input class="btn" type="submit" value="立即送出" @click.prevent="sendForm()" />
+      <input class="btn btn-1" type="submit" value="立即送出" @click.prevent="sendForm()" />
     </form>
     <section class="complete" ref="formComplete">
       <div class="heading-1">
@@ -141,8 +124,8 @@ article.receiveForm {
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  border: 1px solid $G1;
-  box-shadow: 7px 7px 0px $T2;
+  border-radius: 8px;
+  box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.25);
   @media screen and (max-width: 768px) {
     padding: 16px;
   }
@@ -154,40 +137,35 @@ article.receiveForm {
       width: calc(50% - 10px);
       position: relative;
       margin: 1em 0;
+      @media screen and (max-width: 576px) {
+        width: 100%;
+      }
       input:not([type='checkbox']) {
         width: 100%;
-        padding: 5px 10px;
-        font-size: 18px;
-        background-color: $white;
+        padding: 12px 16px;
+        font-size: 16px;
+        background-color: $G11;
         border: none;
-        outline: 1px solid black;
-        transition: all 0.3s ease;
-        color: $T3;
-
+        border-radius: 8px;
+        color: black;
         @media screen and (max-width: 576px) {
           font-size: 14px;
         }
         &:hover {
-          background-color: $G8;
-          color: $T2;
+          background-color: $G12;
         }
         &::placeholder {
-          color: $T3;
-          transition: all 0.3s ease;
+          color: black;
         }
         &:focus {
-          color: $S1;
-          outline: 2px solid $S1;
-          &::placeholder {
-            color: $S1;
-          }
+          outline: 1px solid $G12;
         }
         &:focus-visible {
-          color: $S1;
-          outline: 2px solid $S1;
+          outline: 1px solid $G12;
         }
         &.correct {
-          color: $T2;
+          background-color: white;
+          outline: 1px solid $G12;
         }
       }
       span {
@@ -199,17 +177,6 @@ article.receiveForm {
       &.error {
         input {
           outline: 1px solid $A1;
-          color: $A1;
-          &::placeholder {
-            color: $A1;
-          }
-        }
-      }
-      &:hover {
-        input:not([type='checkbox']) {
-          &::placeholder {
-            color: $T2;
-          }
         }
       }
     }
@@ -218,42 +185,37 @@ article.receiveForm {
       width: calc(50% - 10px);
       position: relative;
       margin: 1em 0;
+      @media screen and (max-width: 576px) {
+        width: 100%;
+      }
       select {
         width: 100%;
-        padding: 5px 10px;
-        font-size: 18px;
+        padding: 12px 16px;
+        font-size: 16px;
         appearance: none;
         -moz-appearance: none;
         -webkit-appearance: none;
         background: url(../assets/img/select.svg) no-repeat;
         background-position: calc(100% - 10px) center;
-        color: $T3;
-        transition: all 0.3s ease;
-        border: 1px solid #000;
-        -webkit-border: 1px solid #000;
-        background-color: $white;
+        color: black;
+        background-color: $G11;
         border: none;
-        outline: 1px solid $black;
+        border-radius: 8px;
         @media screen and (max-width: 576px) {
           font-size: 14px;
         }
         &:hover {
-          background-color: $G8;
-          color: $T2;
+          background-color: $G12;
         }
         &:focus {
-          color: $S1;
-          outline: 2px solid $S1;
-          &::placeholder {
-            color: $S1;
-          }
+          outline: 1px solid $G12;
         }
         &:focus-visible {
-          color: $S1;
-          outline: 2px solid $S1;
+          outline: 1px solid $G12;
         }
         &.correct {
-          color: $T2;
+          background-color: white;
+          outline: 1px solid $G12;
         }
       }
       span {
@@ -262,15 +224,9 @@ article.receiveForm {
         left: 0;
         color: $A1;
       }
-      &:hover {
-        select {
-          background-color: $G8;
-        }
-      }
       &.error {
         select {
           outline: 1px solid $A1;
-          color: $A1;
           background-image: url(../assets/img/select-err.svg);
           position: relative;
         }
@@ -304,19 +260,18 @@ article.receiveForm {
       width: 100%;
       text-align: center;
       input[type='checkbox'] + label {
-        color: $T2;
-        font-size: 14px;
+        font-size: 16px;
         margin: 1em auto;
         transition: all 0.3s ease;
         width: auto;
         padding-left: 1.5em;
         cursor: pointer;
-        a {
-          text-decoration: none;
-          color: $S2;
+        @media screen and (max-width: 576px) {
+          font-size: 14px;
         }
-        &:hover {
-          color: $T2;
+        a {
+          color: black;
+          margin-left: 3px;
         }
       }
       input[type='checkbox'] {
@@ -331,15 +286,12 @@ article.receiveForm {
         margin-top: 0.2em;
         border-radius: 50%;
       }
-      input[type='checkbox']:hover + label:hover {
-        color: $S1;
-      }
       input[type='checkbox']:checked + label {
-        color: $T2;
+        color: black;
       }
       input[type='checkbox']:checked + label::before {
         box-shadow: 0.1em 0.1em 0 $white inset, -0.1em 0.1em 0 $white inset,
-          0.1em -0.1em 0 $white inset, -0.1em -0.1em 0 $white inset, 1em 1em 0 $S1 inset;
+          0.1em -0.1em 0 $white inset, -0.1em -0.1em 0 $white inset, 1em 1em 0 black inset;
       }
       span {
         width: 100%;
@@ -350,24 +302,16 @@ article.receiveForm {
     //
   }
   input[type='submit'] {
-    background-color: $S1;
-    border: 1px solid $T1;
-    border-radius: 0;
-    box-shadow: 4px 4px 0px $T2;
-    color: $white;
-    font-size: 18px;
-    font-weight: bolder;
+    background-color: $P1;
+    border-radius: 8px;
+    color: white;
     width: 100%;
     margin-top: 1em;
     &:hover {
-      box-shadow: none;
-      background-color: $S3;
+      background-color: $P6;
     }
     &:disabled {
-      background-color: $G9;
-      border-color: $G6;
-      box-shadow: none;
-      color: $T3;
+      background-color: $G10;
     }
   }
   section.complete {
@@ -430,7 +374,7 @@ export default {
         outletSub: '47',
         mediaSub: '888',
         type: 'Event',
-        course: '數位繪畫班',
+        course: '',
         name: '',
         cellphone: '',
         email: '',
@@ -451,8 +395,6 @@ export default {
         cellphoneErrorMsg: '請輸入電話',
         emailError: false,
         emailErrorMsg: '請輸入信箱',
-        courseError: false,
-        courseErrorMsg: '請選擇課程',
         cityError: false,
         cityErrorMsg: '請選擇居住縣市',
         areaError: false,
@@ -461,9 +403,7 @@ export default {
         agreementErrorMsg: '請詳細閱讀並同意隱私權使用條款',
         //客製化項目
         remarkError: false,
-        remarkErrorMsg: '請選擇時段',
-        remark2Error: false,
-        remark2ErrorMsg: '請選擇設計程度'
+        remarkErrorMsg: '請選擇時段'
       },
       city: [],
       area: [],
@@ -483,6 +423,7 @@ export default {
         vm.city = [...res.data]
       }
     })
+    this.checkInput()
   },
   methods: {
     getArea() {
@@ -550,12 +491,6 @@ export default {
       } else {
         this.verify.areaError = false
       }
-      //課程
-      if (this.user.course == '') {
-        this.verify.courseError = true
-      } else {
-        this.verify.courseError = false
-      }
       //使用條款
       if (!this.user.agreement) {
         this.verify.agreementError = true
@@ -567,11 +502,6 @@ export default {
         this.verify.remarkError = true
       } else {
         this.verify.remarkError = false
-      }
-      if (this.user.remark2 == '') {
-        this.verify.remark2Error = true
-      } else {
-        this.verify.remark2Error = false
       }
     },
     sendForm() {
@@ -585,15 +515,12 @@ export default {
         !this.verify.emailError &&
         !this.verify.cityError &&
         !this.verify.areaError &&
-        !this.verify.courseError &&
         !this.verify.agreementError &&
-        //客製化項目
-        !this.verify.remarkError &&
-        !this.verify.remark2Error
+        !this.verify.remarkError
       ) {
         // eslint-disable-next-line no-undef
         $.ajax({
-          url: 'https://www.appedu.com.tw/Librarys/_ajax/Distribution.php',
+          url: '#',
           type: 'POST',
           dataType: 'json',
           data: {
@@ -607,7 +534,7 @@ export default {
             cellphone: this.user.cellphone,
             email: this.user.email,
             zip_id: this.user.area,
-            remark: `頁面網址：${this.url}\n我對設計了解的程度：${this.user.remark2} ， 方便聯繫時段：${this.user.remark}`,
+            remark: `頁面網址：${this.url}\n我有興趣的學習模式：${this.user.remark}`,
             gift: this.user.gift,
             sms_id: this.user.sms ?? 0,
             mail_id: this.user.mail ?? 0
